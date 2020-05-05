@@ -9,63 +9,63 @@ public class MainSelectors {
         this.driver = driver;
     }
 
-    private By FirstNameField = By.id("FirstName");
-    private By LastNameField = By.id("LastName");
-    private By CategoryField = By.id("Category");
+    private By firstName = By.id("FirstName");
+    private By lastName = By.id("LastName");
+    private By categoryField = By.id("Category");
     private By vipCountField = By.id("count");
-    private By AddButton = By.id("Add");
-    private By DeleteButton = By.id("Delete");
-    private By LoadButton = By.id("Load");
-    private By SaveButton = By.id("Save");
-    private By ClearButton = By.id("Clear");
-    private By GenderRadioButtonM = By.xpath("//*[@id=\"Gender\" and @value=\"male\"]");
-    private By GenderRadioButtonF = By.xpath("//*[@id=\"Gender\" and @value=\"female\"]");
+    private By addButton = By.id("Add");
+    private By deleteButton = By.id("Delete");
+    private By loadButton = By.id("Load");
+    private By saveButton = By.id("Save");
+    private By clearButton = By.id("Clear");
+    private By genderRadioButtonM = By.xpath("//*[@id='Gender' and @value='male']");
+    private By genderRadioButtonF = By.xpath("//*[@id='Gender' and @value='female']");
 
     //Methods
     public MainSelectors typeFirstNameField(String firstName) {
-        this.driver.findElement(FirstNameField).clear();
-        this.driver.findElement(FirstNameField).sendKeys(firstName);
+        this.driver.findElement(this.firstName).clear();
+        this.driver.findElement(this.firstName).sendKeys(firstName);
         return this;
     }
     public MainSelectors typeLastNameField(String lastName) {
-        this.driver.findElement(LastNameField).clear();
-        this.driver.findElement(LastNameField).sendKeys(lastName);
+        this.driver.findElement(this.lastName).clear();
+        this.driver.findElement(this.lastName).sendKeys(lastName);
         return this;
     }
-    public MainSelectors selectCategory(String category) {
-        Select selectCategory = new Select(this.driver.findElement(CategoryField));
-        selectCategory.selectByVisibleText(category);
+    public MainSelectors selectCategory(CategoryConstants category) {
+        Select selectCategory = new Select(this.driver.findElement(categoryField));
+        selectCategory.selectByVisibleText(category.toString());
         return this;
-    }
-    public MainSelectors selectGenderM() {
-        driver.findElement(GenderRadioButtonM).click();
-        return new MainSelectors(driver);
     }
     public String getVipCount() {
         return driver.findElement(vipCountField).getText().replaceAll("[^0-9]", "");
     }
-    public MainSelectors selectGenderF() {
-        driver.findElement(GenderRadioButtonF).click();
+    public MainSelectors selectGender(String gender) {
+        if (gender.contains("Male")) {
+            driver.findElement(genderRadioButtonM).click();
+        } else {
+            driver.findElement(genderRadioButtonF).click();
+        }
         return new MainSelectors(driver);
     }
     public MainSelectors clickAddButton(){
-        driver.findElement(AddButton).click();
+        driver.findElement(addButton).click();
         return new MainSelectors(driver);
     }
     public MainSelectors clickDeleteButton(){
-        driver.findElement(DeleteButton).click();
+        driver.findElement(deleteButton).click();
         return new MainSelectors(driver);
     }
     public MainSelectors clickLoadButton(){
-        driver.findElement(LoadButton).click();
+        driver.findElement(loadButton).click();
         return new MainSelectors(driver);
     }
     public MainSelectors clickSaveButton(){
-        driver.findElement(SaveButton).click();
+        driver.findElement(saveButton).click();
         return new MainSelectors(driver);
     }
     public MainSelectors clickClearButton(){
-        driver.findElement(ClearButton).click();
+        driver.findElement(clearButton).click();
         return new MainSelectors(driver);
     }
 }

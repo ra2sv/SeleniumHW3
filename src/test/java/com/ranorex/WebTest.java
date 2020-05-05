@@ -3,14 +3,15 @@ package com.ranorex;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
+import java.util.concurrent.TimeUnit;
+import static org.testng.AssertJUnit.assertEquals;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import java.util.concurrent.TimeUnit;
 
 public class WebTest {
     private WebDriver driver;
@@ -35,26 +36,21 @@ public class WebTest {
         String firstName = "James";
         String lastName = "Bond";
         String gender = "Male";
-        String category = "Movie";
-
+        CategoryConstants category = CategoryConstants.Movie;
 
         Selectors.typeFirstNameField(firstName);
         Selectors.typeLastNameField(lastName);
         Selectors.selectCategory(category);
-        if (gender.contains("Male")) {
-            Selectors.selectGenderM();
-        } else {
-            Selectors.selectGenderF();
-        }
+        Selectors.selectGender(gender);
         Selectors.clickAddButton();
 
-        String getFirstName = driver.findElement(By.xpath(("(//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"]"))).getText();
-        String getLastName = driver.findElement(By.xpath(("((//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"])/following::td[1]"))).getText();
-        String getGender = driver.findElement(By.xpath(("((//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"])/following::td[2]"))).getText();
-        String getCategory = driver.findElement(By.xpath(("((//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"])/following::td[3]"))).getText();
+        WebElement element = driver.findElement(By.xpath(("(//*[@id='VIP'])/following::td[text()='" +firstName+ "']")));
+        String getLastName = element.findElement(By.xpath("./following::td[1]")).getText();
+        String getGender = element.findElement(By.xpath("./following::td[2]")).getText();
+        String getCategory = element.findElement(By.xpath("./following::td[3]")).getText();
 
-        Assert.assertEquals(getFirstName+getLastName+getGender+getCategory, firstName+lastName+gender+category);
-        Assert.assertEquals(Selectors.getVipCount(), "1");
+        assertEquals(getLastName+getGender+getCategory, lastName+gender+category);
+        assertEquals(Selectors.getVipCount(), "1");
 
         System.out.println("Test finished: User was created");
     }
@@ -63,59 +59,51 @@ public class WebTest {
         String firstName = "Michael";
         String lastName = "Jackson";
         String gender = "Male";
-        String category = "Music";
+        CategoryConstants category = CategoryConstants.Music;
 
         Selectors.typeFirstNameField(firstName);
         Selectors.typeLastNameField(lastName);
         Selectors.selectCategory(category);
-        if (gender.contains("Male")) {
-            Selectors.selectGenderM();
-        } else {
-            Selectors.selectGenderF();
-        }
+        Selectors.selectGender(gender);
         Selectors.clickAddButton();
 
-        String getFirstName = driver.findElement(By.xpath(("(//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"]"))).getText();
-        String getLastName = driver.findElement(By.xpath(("((//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"])/following::td[1]"))).getText();
-        String getGender = driver.findElement(By.xpath(("((//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"])/following::td[2]"))).getText();
-        String getCategory = driver.findElement(By.xpath(("((//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"])/following::td[3]"))).getText();
+        WebElement element = driver.findElement(By.xpath(("(//*[@id='VIP'])/following::td[text()='" +firstName+ "']")));
+        String getLastName = element.findElement(By.xpath("./following::td[1]")).getText();
+        String getGender = element.findElement(By.xpath("./following::td[2]")).getText();
+        String getCategory = element.findElement(By.xpath("./following::td[3]")).getText();
 
-        Assert.assertEquals(getFirstName+getLastName+getGender+getCategory, firstName+lastName+gender+category);
-        Assert.assertEquals(Selectors.getVipCount(), "2");
+        assertEquals(getLastName+getGender+getCategory, lastName+gender+category);
+        assertEquals(Selectors.getVipCount(), "2");
 
         firstName = "Britney";
         lastName = "Spears";
         gender = "Female";
-        category = "Music";
+        category = CategoryConstants.Other;
 
         Selectors.typeFirstNameField(firstName);
         Selectors.typeLastNameField(lastName);
         Selectors.selectCategory(category);
-        if (gender.contains("Male")) {
-            Selectors.selectGenderM();
-        } else {
-            Selectors.selectGenderF();
-        }
+        Selectors.selectGender(gender);
         Selectors.clickAddButton();
 
-        getFirstName = driver.findElement(By.xpath(("(//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"]"))).getText();
-        getLastName = driver.findElement(By.xpath(("((//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"])/following::td[1]"))).getText();
-        getGender = driver.findElement(By.xpath(("((//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"])/following::td[2]"))).getText();
-        getCategory = driver.findElement(By.xpath(("((//*[@id=\"VIP\"])/following::td[text()=\"" +firstName+ "\"])/following::td[3]"))).getText();
+        element = driver.findElement(By.xpath(("(//*[@id='VIP'])/following::td[text()='" +firstName+ "']")));
+        getLastName = element.findElement(By.xpath("./following::td[1]")).getText();
+        getGender = element.findElement(By.xpath("./following::td[2]")).getText();
+        getCategory = element.findElement(By.xpath("./following::td[3]")).getText();
 
-        Assert.assertEquals(getFirstName+getLastName+getGender+getCategory, firstName+lastName+gender+category);
-        Assert.assertEquals(Selectors.getVipCount(), "3");
+        assertEquals(getLastName+getGender+getCategory, lastName+gender+category);
+        assertEquals(Selectors.getVipCount(), "3");
 
         System.out.println("Test finished: Users were created");
     }
     @Test (description = "Remove the first user", dependsOnMethods = "t1AddNewUser_one")
     public void t3RemoveUser() {
         String firstName = "James";
-        if ((driver.findElement(By.xpath("((//*[@id=\"VIP\"])[1])/following::td[1]")).getText().contains(firstName))){
-            driver.findElement(By.xpath("(//*[@id=\"VIP\"])[1]")).click();
+        if ((driver.findElement(By.xpath("((//*[@id='VIP'])[1])/following::td[1]")).getText().contains(firstName))){
+            driver.findElement(By.xpath("(//*[@id='VIP'])[1]")).click();
             Selectors.clickDeleteButton();
         }
-        Assert.assertEquals(Selectors.getVipCount(), "2");
+        assertEquals(Selectors.getVipCount(), "2");
         System.out.println("Test finished: User was deleted");
     }
 }
