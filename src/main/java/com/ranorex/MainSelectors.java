@@ -9,8 +9,8 @@ public class MainSelectors {
         this.driver = driver;
     }
 
-    private By firstName = By.id("FirstName");
-    private By lastName = By.id("LastName");
+    private By firstNameField = By.id("FirstName");
+    private By lastNameField = By.id("LastName");
     private By categoryField = By.id("Category");
     private By vipCountField = By.id("count");
     private By addButton = By.id("Add");
@@ -23,13 +23,13 @@ public class MainSelectors {
 
     //Methods
     public MainSelectors typeFirstNameField(String firstName) {
-        this.driver.findElement(this.firstName).clear();
-        this.driver.findElement(this.firstName).sendKeys(firstName);
+        this.driver.findElement(this.firstNameField).clear();
+        this.driver.findElement(this.firstNameField).sendKeys(firstName);
         return this;
     }
     public MainSelectors typeLastNameField(String lastName) {
-        this.driver.findElement(this.lastName).clear();
-        this.driver.findElement(this.lastName).sendKeys(lastName);
+        this.driver.findElement(this.lastNameField).clear();
+        this.driver.findElement(this.lastNameField).sendKeys(lastName);
         return this;
     }
     public MainSelectors selectCategory(CategoryConstants category) {
